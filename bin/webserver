@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'webrick'
+
+include WEBrick
+
+options = { Port: 9292, DocumentRoot: '.' }
+option_parser = OptionParser.new do |opts|
+  opts.banner = "A simple, static webserver for front-end development\nUsage: webserver [options]"
+
+  opts.on('-p 9292', '--port 9292', 'Webserver\'s Port') do |port|
+    options[:Port] = port.to_i
+  end
+
+  opts.on('-r .', '--root .', 'Webserver\'s DocumentRoot') do |root|
+    options[:DocumentRoot] = root
+  end
+end.parse!
+options[:DocumentRoot] = Dir::pwd + '/' + options[:DocumentRoot]
+
+server = HTTPServer.new(options)
+trap('INT') { server.shutdown }
+server.start
