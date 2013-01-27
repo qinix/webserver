@@ -18,9 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-```ruby
-$ webserver -p $PORT -d $DIRECTORY
-```
+    $ webserver -p $PORT -r $DocumentRoot
 
 ## Contributing
 
